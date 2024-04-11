@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['usuari_autenticat']) || $_SESSION['usuari_autenticat'] !== true) {
+        header("Location: info.php");
+        exit();
+    }
+
     require 'vendor/autoload.php';
     use Laminas\Ldap\Ldap;
 
@@ -44,4 +51,4 @@
     }
 ?>
 
-<button onclick="location.href='index.php'">Volver</button>
+<button onclick="location.href='principal.php'">Volver</button>

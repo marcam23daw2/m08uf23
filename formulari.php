@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['usuari_autenticat']) || $_SESSION['usuari_autenticat'] !== true) {
+        header("Location: info.php");
+        exit();
+    }
+
     require 'vendor/autoload.php';
     use Laminas\Ldap\Attribute;
     use Laminas\Ldap\Ldap;
@@ -53,40 +60,6 @@
 }
 ?>
 
-
-<style>
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 300px; 
-}
-
-form input[type="text"] {
-    width: 30%;
-    padding: 7px;
-    margin: 5px 0;
-    box-sizing: border-box;
-	width: 100%;
-    margin-bottom: 10px; 
-}
-
-form input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-form input[type="submit"]:hover {
-    opacity: 0.8;
-}
-
-
-</style>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"><br>
     uid: <input type="text" name="uid"><br>
     unitat organitzativa: <input type="text" name="unitat_organitzativa"><br>
@@ -102,5 +75,8 @@ form input[type="submit"]:hover {
     telephoneNumber: <input type="text" name="telephoneNumber"><br>
     title: <input type="text" name="title"><br>
     description: <input type="text" name="description"><br>
-    <input type="submit">
+    <input type="submit" value="CREAR USUARIO">
+</form>
+<form action="principal.php">
+    <input type="submit" value="Volver">
 </form>
